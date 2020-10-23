@@ -5,8 +5,15 @@
   "author": "Naoki Ikeguchi <root@siketyan.dev>",
   "license": "MIT",
   "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack"
+  },
   "dependencies": {
   },
   "devDependencies": {
+    "ts-loader": "^8.0.6",
+    "typescript": "^4.0.3",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0"
   }
 }
