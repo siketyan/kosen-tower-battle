@@ -1,0 +1,12 @@
+{
+  "name": "emblem-tower-battle",
+  "version": "0.1.0",
+  "repository": "git@github.com:siketyan/emblem-tower-battle.git",
+  "author": "Naoki Ikeguchi <root@siketyan.dev>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
