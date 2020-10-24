@@ -1,4 +1,7 @@
 import { Bodies, Engine, Render, Runner, World } from 'matter-js';
+import * as decomp from 'poly-decomp';
+
+global['decomp'] = decomp;
 
 const engine = Engine.create();
 const renderer = Render.create({
