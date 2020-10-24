@@ -1,4 +1,4 @@
-import { Bodies, Engine, Render, Runner, Vector, World } from '@siketyan/matter-js';
+import { Bodies, Body, Engine, Events, Render, Runner, Vector, World } from '@siketyan/matter-js';
 import * as decomp from 'poly-decomp';
 
 global['decomp'] = decomp;
@@ -37,6 +37,39 @@ const ground = Bodies.rectangle(
     isStatic: true,
   },
 );
+
+const waitForStopping = (body: Body, count: number, threshold: number): Promise<void> => {
+  return new Promise<void>(resolve => {
+    let counter = 0;
+    let previous = null;
+
+    const ok = (a: number, b: number): boolean => Math.abs(a - b) < threshold;
+    const callback = () => {
+      if (body.isStatic) {
+        return;
+      }
+
+      const conditions = [
+        ok(previous?.x, body.position.x),
+        ok(previous?.y, body.position.y),
+        ok(previous?.angle, body.angle),
+      ];
+
+      if ((counter = conditions.every(c => c) ? counter + 1 : 0) >= count) {
+        Events.off(runner, 'beforeUpdate', callback);
+        resolve();
+      }
+
+      previous = {
+        x: body.position.x,
+        y: body.position.y,
+        angle: body.angle,
+      };
+    };
+
+    Events.on(runner, 'beforeUpdate', callback);
+  });
+};
 
 (async () => {
   const scale = 0.5;
