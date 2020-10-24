@@ -92,7 +92,14 @@ const waitForStopping = (body: Body, count: number, threshold: number): Promise<
     },
   );
 
+  Body.setStatic(body, true);
   World.add(engine.world, [ground, body]);
+
+  document.getElementById('control-left').onclick = () => Body.setPosition(body, { x: body.position.x - 1, y: body.position.y });
+  document.getElementById('control-right').onclick = () => Body.setPosition(body, { x: body.position.x + 1, y: body.position.y });
+  document.getElementById('control-anticlockwise').onclick = () => Body.setAngle(body, body.angle - Math.PI / 180);
+  document.getElementById('control-clockwise').onclick = () => Body.setAngle(body, body.angle + Math.PI / 180);
+  document.getElementById('control-drop').onclick = () => Body.setStatic(body, false);
 })()
   .then()
   .catch(console.error)
