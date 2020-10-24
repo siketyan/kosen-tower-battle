@@ -9,7 +9,8 @@
     "build": "webpack"
   },
   "dependencies": {
-    "@siketyan/matter-js": "^0.14.4"
+    "@siketyan/matter-js": "^0.14.4",
+    "poly-decomp": "^0.3.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^6.2.1",
