@@ -1,4 +1,4 @@
-import { Bodies, Engine, Render, Runner, Vector, World } from '@siketyan/matter-js';
+import { Bodies, Body, Engine, Events, Render, Runner, Vector, World } from '@siketyan/matter-js';
 import * as decomp from 'poly-decomp';
 
 global['decomp'] = decomp;
@@ -38,7 +38,40 @@ const ground = Bodies.rectangle(
   },
 );
 
-(async () => {
+const waitForStopping = (body: Body, count: number, threshold: number): Promise<void> => {
+  return new Promise<void>(resolve => {
+    let counter = 0;
+    let previous = null;
+
+    const ok = (a: number, b: number): boolean => Math.abs(a - b) < threshold;
+    const callback = () => {
+      if (body.isStatic) {
+        return;
+      }
+
+      const conditions = [
+        ok(previous?.x, body.position.x),
+        ok(previous?.y, body.position.y),
+        ok(previous?.angle, body.angle),
+      ];
+
+      if ((counter = conditions.every(c => c) ? counter + 1 : 0) >= count) {
+        Events.off(runner, 'beforeUpdate', callback);
+        resolve();
+      }
+
+      previous = {
+        x: body.position.x,
+        y: body.position.y,
+        angle: body.angle,
+      };
+    };
+
+    Events.on(runner, 'beforeUpdate', callback);
+  });
+};
+
+const spawn = async (): Promise<Body> => {
   const scale = 0.5;
   const emblems: Emblem[] = await fetch(EMBLEMS_JSON_FILE).then(r => r.json());
   const emblem = emblems[Math.floor(Math.random() * emblems.length)];
@@ -59,7 +92,23 @@ const ground = Bodies.rectangle(
     },
   );
 
+  Body.setStatic(body, true);
   World.add(engine.world, [ground, body]);
+
+  document.getElementById('control-left').onclick = () => Body.setPosition(body, { x: body.position.x - 1, y: body.position.y });
+  document.getElementById('control-right').onclick = () => Body.setPosition(body, { x: body.position.x + 1, y: body.position.y });
+  document.getElementById('control-anticlockwise').onclick = () => Body.setAngle(body, body.angle - Math.PI / 180);
+  document.getElementById('control-clockwise').onclick = () => Body.setAngle(body, body.angle + Math.PI / 180);
+  document.getElementById('control-drop').onclick = () => Body.setStatic(body, false);
+
+  return body;
+};
+
+(async () => {
+  while (true) {
+    const body = await spawn();
+    await waitForStopping(body, 100, 0.1);
+  }
 })()
   .then()
   .catch(console.error)
