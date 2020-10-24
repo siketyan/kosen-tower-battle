@@ -1,4 +1,4 @@
-import { Bodies, Engine, Render, Runner, World } from 'matter-js';
+import { Bodies, Engine, Render, Runner, World } from '@siketyan/matter-js';
 import * as decomp from 'poly-decomp';
 
 global['decomp'] = decomp;
