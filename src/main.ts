@@ -71,7 +71,7 @@ const waitForStopping = (body: Body, count: number, threshold: number): Promise<
   });
 };
 
-(async () => {
+const spawn = async (): Promise<Body> => {
   const scale = 0.5;
   const emblems: Emblem[] = await fetch(EMBLEMS_JSON_FILE).then(r => r.json());
   const emblem = emblems[Math.floor(Math.random() * emblems.length)];
@@ -100,6 +100,15 @@ const waitForStopping = (body: Body, count: number, threshold: number): Promise<
   document.getElementById('control-anticlockwise').onclick = () => Body.setAngle(body, body.angle - Math.PI / 180);
   document.getElementById('control-clockwise').onclick = () => Body.setAngle(body, body.angle + Math.PI / 180);
   document.getElementById('control-drop').onclick = () => Body.setStatic(body, false);
+
+  return body;
+};
+
+(async () => {
+  while (true) {
+    const body = await spawn();
+    await waitForStopping(body, 100, 0.1);
+  }
 })()
   .then()
   .catch(console.error)
