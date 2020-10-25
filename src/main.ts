@@ -1,5 +1,6 @@
 import { Bodies, Body, Engine, Events, Render, Runner, Vector, World } from '@siketyan/matter-js';
 import * as decomp from 'poly-decomp';
+import './styles/app.scss';
 
 global['decomp'] = decomp;
 
