@@ -37,7 +37,14 @@ main {
 
         > button {
             display: block;
-            padding: 16px;
+            padding: 8px;
+            font-size: 2rem;
+            background: transparent;
+            border: none;
+
+            &:focus {
+                outline: none;
+            }
         }
     }
 }
