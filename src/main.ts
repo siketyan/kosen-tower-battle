@@ -21,7 +21,7 @@ const renderer = Render.create({
     width: element.clientWidth,
     height: element.clientHeight,
     wireframes: false,
-    background: 'white',
+    background: '#a0d8ef',
   },
 });
 
