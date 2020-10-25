@@ -31,12 +31,14 @@ Runner.run(runner, engine);
 const ground = Bodies.rectangle(
   renderer.options.width / 2,
   renderer.options.height + 10,
-  renderer.options.width + 10,
+  400,
   60,
   {
     isStatic: true,
   },
 );
+
+World.add(engine.world, ground);
 
 const waitForStopping = (body: Body, count: number, threshold: number): Promise<void> => {
   return new Promise<void>(resolve => {
@@ -71,6 +73,22 @@ const waitForStopping = (body: Body, count: number, threshold: number): Promise<
   });
 };
 
+const detectDropout = (body: Body, runner: Runner, y: number): void => {
+  const callback = () => {
+    if (body.position.y > y) {
+      console.log('hi!');
+
+      World.remove(engine.world, body);
+      Events.off(runner, 'beforeUpdate', callback);
+
+      alert('Game over!');
+      location.reload();
+    }
+  };
+
+  Events.on(runner, 'beforeUpdate', callback);
+};
+
 const spawn = async (): Promise<Body> => {
   const scale = 0.5;
   const emblems: Emblem[] = await fetch(EMBLEMS_JSON_FILE).then(r => r.json());
@@ -93,7 +111,7 @@ const spawn = async (): Promise<Body> => {
   );
 
   Body.setStatic(body, true);
-  World.add(engine.world, [ground, body]);
+  World.add(engine.world, body);
 
   document.getElementById('control-left').onclick = () => Body.setPosition(body, { x: body.position.x - 1, y: body.position.y });
   document.getElementById('control-right').onclick = () => Body.setPosition(body, { x: body.position.x + 1, y: body.position.y });
@@ -107,6 +125,8 @@ const spawn = async (): Promise<Body> => {
 (async () => {
   while (true) {
     const body = await spawn();
+    detectDropout(body, runner, renderer.options.height);
+
     await waitForStopping(body, 100, 0.1);
   }
 })()
