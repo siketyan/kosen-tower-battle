@@ -4,6 +4,8 @@ import './styles/app.scss';
 
 global['decomp'] = decomp;
 
+const WIDTH = 1080;
+const HEIGHT = 1920;
 const EMBLEMS_JSON_FILE = './emblems.json';
 const EMBLEMS_DIRECTORY = './emblems/';
 
@@ -18,8 +20,8 @@ const renderer = Render.create({
   element,
   engine,
   options: {
-    width: element.clientWidth,
-    height: element.clientHeight,
+    width: WIDTH,
+    height: HEIGHT,
     wireframes: false,
     background: '#a0d8ef',
   },
@@ -31,9 +33,9 @@ const runner = Runner.create();
 Runner.run(runner, engine);
 
 const ground = Bodies.rectangle(
-  renderer.options.width / 2,
-  renderer.options.height - 128,
-  400,
+  WIDTH / 2,
+  HEIGHT * 4 / 5,
+  WIDTH / 2,
   60,
   {
     isStatic: true,
