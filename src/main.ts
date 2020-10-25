@@ -31,7 +31,7 @@ Runner.run(runner, engine);
 const ground = Bodies.rectangle(
   renderer.options.width / 2,
   renderer.options.height + 10,
-  renderer.options.width + 10,
+  400,
   60,
   {
     isStatic: true,
