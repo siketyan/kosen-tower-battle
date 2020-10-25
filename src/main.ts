@@ -4,6 +4,8 @@ import './styles/app.scss';
 
 global['decomp'] = decomp;
 
+const WIDTH = 1080;
+const HEIGHT = 1920;
 const EMBLEMS_JSON_FILE = './emblems.json';
 const EMBLEMS_DIRECTORY = './emblems/';
 
@@ -18,8 +20,8 @@ const renderer = Render.create({
   element,
   engine,
   options: {
-    width: element.clientWidth,
-    height: element.clientHeight,
+    width: WIDTH,
+    height: HEIGHT,
     wireframes: false,
     background: '#a0d8ef',
   },
