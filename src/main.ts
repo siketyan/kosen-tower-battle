@@ -12,13 +12,14 @@ type Emblem = {
   metadata: string,
 };
 
+const element = document.getElementById('app');
 const engine = Engine.create();
 const renderer = Render.create({
-  element: document.getElementById('app'),
+  element,
   engine,
   options: {
-    width: 800,
-    height: 600,
+    width: element.clientWidth,
+    height: element.clientHeight,
     wireframes: false,
     background: 'white',
   },
@@ -31,7 +32,7 @@ Runner.run(runner, engine);
 
 const ground = Bodies.rectangle(
   renderer.options.width / 2,
-  renderer.options.height + 10,
+  renderer.options.height - 128,
   400,
   60,
   {
