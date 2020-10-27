@@ -118,8 +118,8 @@ const spawn = async (): Promise<Body> => {
   World.add(engine.world, body);
 
   element.onclick = event => Body.setPosition(body, { x: event.offsetX * WIDTH / element.clientWidth, y: body.position.y });
-  document.getElementById('control-anticlockwise').onclick = () => Body.setAngle(body, body.angle - Math.PI / 180);
-  document.getElementById('control-clockwise').onclick = () => Body.setAngle(body, body.angle + Math.PI / 180);
+  document.getElementById('control-anticlockwise').onclick = () => Body.setAngle(body, body.angle - Math.PI / 4);
+  document.getElementById('control-clockwise').onclick = () => Body.setAngle(body, body.angle + Math.PI / 4);
   document.getElementById('control-drop').onclick = () => Body.setStatic(body, false);
 
   return body;
