@@ -22,6 +22,7 @@ const renderer = Render.create({
   options: {
     width: WIDTH,
     height: HEIGHT,
+    hasBounds: true,
     wireframes: false,
     background: '#a0d8ef',
   },
@@ -43,6 +44,19 @@ const ground = Bodies.rectangle(
 );
 
 World.add(engine.world, ground);
+
+const adjustBounds = () => {
+  const highest = Math.min(...engine.world.bodies.map(b => b.position.y));
+  const center = (renderer.bounds.max.y - renderer.bounds.min.y) / 2;
+  const delta = center - highest;
+
+  console.log(highest, center, delta);
+
+  if (delta > 0) {
+    renderer.bounds.max.y = highest + center;
+    renderer.bounds.min.y = highest - center;
+  }
+};
 
 const waitForStopping = (body: Body, count: number, threshold: number): Promise<void> => {
   return new Promise<void>(resolve => {
@@ -100,7 +114,7 @@ const spawn = async (): Promise<Body> => {
   const vertices: Vector[] = await fetch(EMBLEMS_DIRECTORY + emblem.metadata).then(r => r.json());
   const body = Bodies.fromVertices(
     renderer.options.width / 2,
-    200,
+    renderer.bounds.min.y + 200,
     [vertices.map(v => (<Vector>{ x: v.x * scale, y: v.y * scale }))],
     {
       render: {
@@ -131,6 +145,7 @@ const spawn = async (): Promise<Body> => {
     detectDropout(body, runner, renderer.options.height);
 
     await waitForStopping(body, 100, 0.1);
+    adjustBounds();
   }
 })()
   .then()
