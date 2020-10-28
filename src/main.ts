@@ -114,7 +114,7 @@ const spawn = async (): Promise<Body> => {
   const vertices: Vector[] = await fetch(EMBLEMS_DIRECTORY + emblem.metadata).then(r => r.json());
   const body = Bodies.fromVertices(
     renderer.options.width / 2,
-    200,
+    renderer.bounds.min.y + 200,
     [vertices.map(v => (<Vector>{ x: v.x * scale, y: v.y * scale }))],
     {
       render: {
