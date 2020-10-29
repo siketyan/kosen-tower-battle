@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { Controls } from './components/molecules/controls';
 import { Canvas } from './components/atoms/canvas';
-import { Game } from './services';
-import { Fetcher } from './services/fetcher';
+import { Fetcher, Game } from './services';
 
 type Props = {
 };
