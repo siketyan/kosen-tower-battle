@@ -41,12 +41,17 @@ main {
         width: 100%;
         height: 64px;
 
-        > button {
+        > img {
             display: block;
-            padding: 8px;
-            font-size: 4rem;
-            background: transparent;
-            border: none;
+            margin: 1rem;
+            width: 5rem;
+            height: 5rem;
+            transition: .2s ease-in-out;
+
+            &:hover {
+                width: 5.5rem;
+                height: 5.5rem;
+            }
 
             &:focus {
                 outline: none;

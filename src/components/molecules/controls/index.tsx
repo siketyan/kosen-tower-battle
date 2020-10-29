@@ -11,9 +11,21 @@ type Props = {
 export const Controls: React.FC<Props> = (props: Props) => {
   return (
     <nav id="controls">
-      <Button text="↪" onClick={ props.onRotateLeft } />
-      <Button text="↓" onClick={ props.onDrop } />
-      <Button text="↩" onClick={ props.onRotateRight } />
+      <Button
+        text="↪"
+        image="./rotate-left.svg"
+        onClick={ props.onRotateLeft }
+      />
+      <Button
+        text="↓"
+        image="./drop.svg"
+        onClick={ props.onDrop }
+      />
+      <Button
+        text="↩"
+        image="./rotate-right.svg"
+        onClick={ props.onRotateRight }
+      />
     </nav>
   );
 };
