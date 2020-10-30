@@ -10,6 +10,10 @@ export class Item {
   }
 
   set position(value: Vector) {
+    if (!this.body.isStatic) {
+      return;
+    }
+
     Body.setPosition(this.body, value);
   }
 
@@ -46,6 +50,10 @@ export class Item {
   }
 
   rotate(degree: number): void {
+    if (!this.body.isStatic) {
+      return;
+    }
+
     Body.rotate(this.body, Math.PI * degree / 180);
   }
 }
