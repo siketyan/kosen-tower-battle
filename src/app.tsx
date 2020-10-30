@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Controls, EndScreen, Tooltip } from './components/molecules';
+import { Controls, EndScreen, Tooltip, Tutorial } from './components/molecules';
 import { Canvas } from './components/atoms/canvas';
 import { Fetcher, Game } from './services';
 
@@ -8,6 +8,7 @@ type Props = {
 };
 
 type State = {
+  isTutorialClosed: boolean,
   isEnd: boolean,
 };
 
@@ -26,6 +27,7 @@ export class App extends React.Component<Props, State> {
     super(props);
 
     this.state = {
+      isTutorialClosed: false,
       isEnd: false,
     };
   }
@@ -49,6 +51,7 @@ export class App extends React.Component<Props, State> {
           onRotateRight={ () => getItem().rotate(45) }
         />
         { this.state.isEnd ? <EndScreen /> : <></> }
+        { !this.state.isTutorialClosed ? <Tutorial onClosing={ this.onTutorialClosing.bind(this) } /> : <></> }
       </main>
     );
   }
@@ -66,6 +69,12 @@ export class App extends React.Component<Props, State> {
     console.log('GAME OVER');
     this.setState({
       isEnd: true,
+    });
+  }
+
+  private onTutorialClosing(): void {
+    this.setState({
+      isTutorialClosed: true,
     });
   }
 
