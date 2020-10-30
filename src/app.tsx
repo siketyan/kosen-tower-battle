@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Controls } from './components/molecules/controls';
+import { Controls, Tooltip } from './components/molecules';
 import { Canvas } from './components/atoms/canvas';
 import { Fetcher, Game } from './services';
 
@@ -9,6 +9,7 @@ type Props = {
 
 export class App extends React.Component<Props> {
   readonly canvas: React.RefObject<Canvas> = React.createRef();
+  readonly tooltip: React.RefObject<Tooltip> = React.createRef();
   private _game: Game;
 
   get game() {
@@ -22,13 +23,17 @@ export class App extends React.Component<Props> {
   }
 
   render() {
-    const getItem = () => this.game.session?.item;
+    const getItem = () => this.game?.session?.item;
 
     return (
       <main>
         <Canvas
           ref={ this.canvas }
           onClick={ this.onCanvasClicked.bind(this) }
+        />
+        <Tooltip
+          ref={ this.tooltip }
+          getEmblemRef={ () => getItem()?.emblem.ref }
         />
         <Controls
           onDrop={ () => getItem().drop() }
@@ -42,7 +47,7 @@ export class App extends React.Component<Props> {
   componentDidMount() {
     const fetcher = new Fetcher();
     this._game = new Game(this.canvas.current, fetcher);
-    this._game.start().then();
+    this._game.start(() => this.tooltip.current.update()).then();
   }
 
   private onCanvasClicked(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {

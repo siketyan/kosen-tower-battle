@@ -25,7 +25,7 @@ export class Game {
     );
   }
 
-  async start() {
+  async start(onSessionChanged: (session: Session) => void = _ => {}) {
     const emblems = await this.fetcher.fetchEmblems();
     this.stage.run();
 
@@ -38,7 +38,10 @@ export class Game {
       const emblem: Emblem = { ref: emblemRef, imageRef, vertices };
       const object = new Item(emblem);
 
-      this._session = new Session(this.stage, object);
+      onSessionChanged(
+        this._session = new Session(this.stage, object),
+      );
+
       this.detectDropout(this._session.item.body, this.stage.height);
       await this.waitForStopping(this._session.item.body, 50, 0.05);
       this.stage.adjustBounds();

@@ -14,7 +14,7 @@ export class Item {
   }
 
   constructor(
-    private emblem: Emblem,
+    public readonly emblem: Emblem,
     private scale: number = 0.5,
   ) {
     this.body = Bodies.fromVertices(

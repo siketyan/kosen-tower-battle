@@ -38,14 +38,19 @@ def main() -> None:
 
     for filename in [f for f in os.listdir(SOURCE_DIRECTORY) if f.endswith('.png')]:
         source = os.path.join(SOURCE_DIRECTORY, filename)
+        metadata = os.path.join(SOURCE_DIRECTORY, '%s.json' % filename)
         destination = os.path.join(DESTINATION_DIRECTORY, '%s.json' % filename)
 
         print('Compiling: %s -> %s' % (source, destination))
         compile(source, destination)
 
+        with open(metadata, 'r') as file:
+            metadata_json = file.read()
+
         emblems.append({
             'image': os.path.basename(source),
             'metadata': os.path.basename(destination),
+            **json.loads(metadata_json),
         })
 
     with open(os.path.join(DESTINATION_DIRECTORY, '..', 'emblems.json'), 'w+') as file:
