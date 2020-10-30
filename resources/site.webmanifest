@@ -1,0 +1,21 @@
+{
+    "name": "\u9ad8\u5c02\u30bf\u30ef\u30fc\u30d0\u30c8\u30eb",
+    "short_name": "\u9ad8\u5c02\u30bf\u30ef\u30fc\u30d0\u30c8\u30eb",
+    "icons": [
+        {
+            "src": "/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "start_url": "https://ktb.pv6.jp/",
+    "display": "standalone",
+    "orientation": "portrait"
+}
