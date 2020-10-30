@@ -33,10 +33,13 @@ export class Stage {
       Bodies.rectangle(
         this.width / 2,
         this.height * 4 / 5,
-        this.width / 2,
+        this.width * 7 / 10,
         60,
         {
           isStatic: true,
+          friction: 1.2,
+          frictionStatic: 1,
+          restitution: 0,
         },
       ),
     );
