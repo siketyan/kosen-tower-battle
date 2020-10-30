@@ -34,7 +34,7 @@ export class EndScreen extends React.Component {
             <section>
               <h4>シェア</h4>
               {
-                location.href.includes('/ktb.pv6.jp/')
+                !location.href.includes('/ktb.pv6.jp/')
                   ? (
                     <>
                       <p>下の QR コードをスキャンするとソーシャルメディアに共有できます．</p>
