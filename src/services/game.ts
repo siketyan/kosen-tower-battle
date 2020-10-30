@@ -25,7 +25,10 @@ export class Game {
     );
   }
 
-  async start(onSessionChanged: (session: Session) => void = _ => {}) {
+  async start(
+    onSessionChanged: (session: Session) => void = _ => {},
+    onGameOver: () => void = () => {},
+  ) {
     const emblems = await this.fetcher.fetchEmblems();
     this.stage.run();
 
@@ -42,7 +45,7 @@ export class Game {
         this._session = new Session(this.stage, object),
       );
 
-      this.detectDropout(this._session.item.body, this.stage.height);
+      this.detectDropout(this._session.item.body, this.stage.height, onGameOver);
       await this.waitForStopping(this._session.item.body, 50, 0.05);
       this.stage.adjustBounds();
     }
@@ -81,14 +84,13 @@ export class Game {
     });
   }
 
-  private detectDropout(body: Body, y: number): void {
+  private detectDropout(body: Body, y: number, onGameOver: () => void): void {
     const callback = () => {
       if (body.position.y > y) {
         World.remove(this.engine.world, body);
         Events.off(this.runner, 'beforeUpdate', callback);
 
-        alert('Game over!');
-        location.reload();
+        onGameOver();
       }
     };
 

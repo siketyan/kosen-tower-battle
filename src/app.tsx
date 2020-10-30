@@ -1,13 +1,17 @@
 import * as React from 'react';
 
-import { Controls, Tooltip } from './components/molecules';
+import { Controls, EndScreen, Tooltip } from './components/molecules';
 import { Canvas } from './components/atoms/canvas';
 import { Fetcher, Game } from './services';
 
 type Props = {
 };
 
-export class App extends React.Component<Props> {
+type State = {
+  isEnd: boolean,
+};
+
+export class App extends React.Component<Props, State> {
   readonly canvas: React.RefObject<Canvas> = React.createRef();
   readonly tooltip: React.RefObject<Tooltip> = React.createRef();
   private _game: Game;
@@ -20,6 +24,10 @@ export class App extends React.Component<Props> {
     props: Props,
   ) {
     super(props);
+
+    this.state = {
+      isEnd: false,
+    };
   }
 
   render() {
@@ -40,14 +48,25 @@ export class App extends React.Component<Props> {
           onRotateLeft={ () => getItem().rotate(-45) }
           onRotateRight={ () => getItem().rotate(45) }
         />
+        { this.state.isEnd ? <EndScreen /> : <></> }
       </main>
     );
   }
 
-  componentDidMount() {
+  async componentDidMount(): Promise<void> {
     const fetcher = new Fetcher();
     this._game = new Game(this.canvas.current, fetcher);
-    this._game.start(() => this.tooltip.current.update()).then();
+    await this._game.start(
+      () => this.tooltip.current.update(),
+      () => this.onGameOver(),
+    );
+  }
+
+  onGameOver(): void {
+    console.log('GAME OVER');
+    this.setState({
+      isEnd: true,
+    });
   }
 
   private onCanvasClicked(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
