@@ -22,6 +22,11 @@ export class Item {
       0,
       [emblem.vertices.map(v => (<Vector>{ x: v.x * scale, y: v.y * scale }))],
       {
+        density: 0.1,
+        friction: 1.2,
+        frictionStatic: 1,
+        frictionAir: 0.03,
+        restitution: 0,
         render: {
           sprite: {
             xScale: scale,

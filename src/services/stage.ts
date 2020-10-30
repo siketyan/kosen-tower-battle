@@ -33,10 +33,13 @@ export class Stage {
       Bodies.rectangle(
         this.width / 2,
         this.height * 4 / 5,
-        this.width / 2,
+        this.width * 7 / 10,
         60,
         {
           isStatic: true,
+          friction: 1.2,
+          frictionStatic: 1,
+          restitution: 0,
         },
       ),
     );
@@ -51,7 +54,7 @@ export class Stage {
   }
 
   adjustBounds(): void {
-    const highest = Math.min(...this.world.bodies.map(b => b.position.y));
+    const highest = Math.min(...this.world.bodies.map(b => b.position.y)) - 512;
     const center = (this.render.bounds.max.y - this.render.bounds.min.y) / 2;
     const delta = center - highest;
 
