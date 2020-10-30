@@ -54,7 +54,7 @@ export class Stage {
   }
 
   adjustBounds(): void {
-    const highest = Math.min(...this.world.bodies.map(b => b.position.y)) - 512;
+    const highest = Math.min(...this.world.bodies.map(b => b.position.y)) - 256;
     const center = (this.render.bounds.max.y - this.render.bounds.min.y) / 2;
     const delta = center - highest;
 
