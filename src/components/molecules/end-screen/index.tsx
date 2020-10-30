@@ -42,7 +42,7 @@ export class EndScreen extends React.Component {
     const e = encodeURIComponent;
     await QRCode.toCanvas(
       this.canvasRef.current,
-      `https://s.pv6.jp/?text=${e('Emblem Tower Battle')}&url=${e(location.href)}`,
+      `https://s.pv6.jp/?text=${e('高専タワーバトルに挑戦したよ！')}&url=${e(location.href)}`,
     );
   }
 }
