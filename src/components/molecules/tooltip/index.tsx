@@ -23,6 +23,7 @@ export class Tooltip extends React.Component<Props> {
 
     return (
       <Panel
+        color="#3CB371"
         title={ emblemRef?.title }
       >
         <p>{ emblemRef?.description }</p>
