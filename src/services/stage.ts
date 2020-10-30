@@ -42,8 +42,11 @@ export class Stage {
     );
   }
 
-  add(item: Item, position: Vector) {
-    item.position = position;
+  add(item: Item) {
+    item.position = {
+      x: this.width / 2,
+      y: (this.render.bounds.max.y - this.render.bounds.min.y) / 2 - 256,
+    };
     World.add(this.world, item.body);
   }
 
