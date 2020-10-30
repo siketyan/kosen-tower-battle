@@ -59,26 +59,29 @@ main {
         }
     }
 
-    > .tooltip {
+    > .panel {
         position: absolute;
         top: 32px;
         left: 10%;
         width: 80%;
         background-color: mediumseagreen;
-        padding: 4px;
-        border-radius: 10px;
-        box-shadow: 0 0 0 5px #FFF;
+    }
+}
 
-        > header {
-            padding: .5em;
-            color: white;
-        }
+.panel {
+    padding: 4px;
+    border-radius: 10px;
+    box-shadow: 0 0 0 5px #FFF;
 
-        > p {
-            background-color: white;
-            border-radius: 5px;
-            padding: .5em;
-            margin: 0;
-        }
+    > header {
+        padding: .5em;
+        color: white;
+    }
+
+    > p {
+        background-color: white;
+        border-radius: 5px;
+        padding: .5em;
+        margin: 0;
     }
 }

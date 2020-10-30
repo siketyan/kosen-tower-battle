@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Panel } from '../../atoms';
 import { EmblemRef } from '../../../models';
 
 export type Props = {
@@ -21,10 +22,11 @@ export class Tooltip extends React.Component<Props> {
     }
 
     return (
-      <div className="tooltip">
-        <header>{ emblemRef?.title }</header>
+      <Panel
+        title={ emblemRef?.title }
+      >
         <p>{ emblemRef?.description }</p>
-      </div>
+      </Panel>
     );
   }
 
