@@ -86,11 +86,23 @@ button {
         color: white;
     }
 
-    > p {
+    > .panel-body {
         background-color: white;
         border-radius: 5px;
-        padding: .5em;
+        padding: 0 .7em;
         margin: 0;
+
+        > section {
+            padding: .8rem 0;
+        }
+
+        h4 {
+            margin: .2rem 0;
+        }
+
+        p, hr {
+            margin: 0;
+        }
     }
 }
 

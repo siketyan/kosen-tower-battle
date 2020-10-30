@@ -26,7 +26,9 @@ export class Tooltip extends React.Component<Props> {
         color="#3CB371"
         title={ emblemRef?.title }
       >
-        <p>{ emblemRef?.description }</p>
+        <section>
+          <p>{ emblemRef?.description }</p>
+        </section>
       </Panel>
     );
   }
